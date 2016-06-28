@@ -1,12 +1,14 @@
 'use strict'
 
 exports.up = function(knex) {
-    return knex.schema.createTableIfNotExists('books', (table)=> {
+    return knex.schema.createTable('books', (table) => {
       table.increments('id').primary();
       table.integer('author_id')
         .notNullable()
         .references('id')
-        .inTable('authors');
+        .inTable('authors')
+        .onDelete('CASCADE')
+        .index();
       table.string('title')
         .notNullable()
         .defaultTo('');
@@ -24,7 +26,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('books', (table)=> {
-    table.dropForeign('author_id');
-  });
+  return knex.schema.dropTable('books');
 };

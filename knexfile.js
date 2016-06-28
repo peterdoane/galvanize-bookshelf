@@ -9,9 +9,9 @@ module.exports = {
   test: {
     client:'pg',
     connection: 'postgres://localhost/bookshelf_test'
-  }
+  },
   production: {
-    client:'pg'
-    connections:'postgres://localhost/bookshelf_prod'
+    client:'pg',
+    connections: process.env.DATABASE_URL
   }
 };

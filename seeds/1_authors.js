@@ -1,10 +1,9 @@
 'use strict';
 
 exports.seed = function(knex) {
-  return knex('author').del()
+  return knex('authors').del()
     .then(() => {
-      return knex('authors').insert({
-        [{
+      return knex('authors').insert([{
   id: 1,
   first_name: 'Alex',
   last_name: 'Martelli',
@@ -100,14 +99,11 @@ exports.seed = function(knex) {
   portrait_url: 'http://cdn.oreillystatic.com/images/people/154/julia_elman-1.jpg',
   created_at: new Date('2016-06-26 14:26:16 UTC'),
   updated_at: new Date('2016-06-26 14:26:16 UTC')
-}]
-      })
-    }
-}
-
-
+}]);
+})
 .then(() => {
   return knex.raw(
     "SELECT setval('authors_id_seq', (SELECT MAX(id) FROM authors));"
   );
 });
+};

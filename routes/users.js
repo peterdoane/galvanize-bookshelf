@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 router.post('/users', (req, res, next) => {
 
-  if( !req.body.email || req.body.email ===''){
+  if( !req.body.email || email.trim() ===''){
 
     return res
       .status(400)
@@ -15,7 +15,7 @@ router.post('/users', (req, res, next) => {
       .send('user did not email');
   }
 
-  if( !req.body.password || req.body.password ===''){
+  if( !req.body.password || password.trim() ===''){
 
     return res
       .status(400)
@@ -28,11 +28,21 @@ var email = knex('users').where({
 }).select('email');
 if(email.length > 0) {
 
+
   return res
     .status(400)
     .set('Content-Type', 'text/plain')
     .send('user already exists');
 }
+// knex('users')
+// .select(knex.raw('1=1'))
+// .where('email', email)
+//  .first()
+//  .then((exists) => {
+//    if (exists) {
+//      return res.....
+//    }
+//  })
 
   bcrypt.hash(req.body.password, 12, (err, hashed_password) => {
     if (err) {

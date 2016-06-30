@@ -16,18 +16,28 @@ router.get('/users/books', checkAuth, (req, res, next) => {
   const userId = req.session.user.id;
 
   knex('users_books')
-    .innerJoin('users_books', 'authors')
-})
+  .innerJoin('books', 'users_books.book_id','books.id' )
+    .where('users_books.id', userId)
+    .then((users) => {
+      res.send(users_books)
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
 
-// knex.from('users').innerJoin('accounts', 'users.id', 'accounts.user_id')
-//
-//
-// Outputs:
-// select * from `users` inner join `accounts` on `users`.`id` = `accounts`.`user_id`
 
-router.post('/users/books/:id', (req, res, next) =>{
+
+router.post('/users/books/:id', checkAuth, (req, res, next) =>{
+  const userId = req.session.user.id;
+  const bookId = Number.parseInt(req.params.book_id);
+
   knex('users_books')
-    .insert(req.body, '*')
+    .insert({
+      book_id: bookId,
+      user_id: userId
+
+    })
     .then((users_books) => {
       res.send(users_books[0])
     })
@@ -35,7 +45,5 @@ router.post('/users/books/:id', (req, res, next) =>{
       next(err)
     });
 });
-
-// YOUR CODE HERE
 
 module.exports = router;

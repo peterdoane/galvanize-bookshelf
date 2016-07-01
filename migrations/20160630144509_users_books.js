@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     table.integer('book_id')
       .notNullable()
       .references('id')
-      .inTable('users_books')
+      .inTable('books')
       .onDelete('CASCADE')
       .index();
     table.integer('user_id')

@@ -76,23 +76,25 @@ router.delete('/users/books/:id', checkAuth, (req, res, next) => {
   const userId = parseInt(req.session.user.id);
   const bookId = parseInt(req.params.id);
 if(Number.isNaN(bookId)) {
+  console.log('hello');
   return next();
 }
   knex('users_books')
     .where({
-      book_id: bookId,
-      user_id: userId
+      book_id : bookId,
+      user_id: req.session.userId
     })
     .first()
     .then((user_book) => {
+      console.log('hello1');
       if(!user_book) {
         return next()
       }
       return knex('users_books')
         .del()
         .where({
-          book_id: bookId,
-          user_id: userId
+          book_id : bookId,
+          user_id: req.session.userId
         })
         .then(() => {
           delete user_book.id;

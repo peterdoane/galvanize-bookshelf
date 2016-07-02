@@ -4,7 +4,10 @@
   "description": "Create a web application to manage your book collection",
   "scripts": {
     "test": "mocha",
-    "knex": "knex"
+    "knex": "knex",
+    "heroku-postbuild": "knex migrate:latest",
+    "nodemon": "nodemon server.js",
+    "nf": "nf start"
   },
   "license": "MIT",
   "dependencies": {

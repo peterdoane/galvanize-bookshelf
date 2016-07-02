@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const knex = require('./knex');
+const knex = require('../knex');
 
 router.get('/authors', (_req,res, next) => {
   knex('authors')

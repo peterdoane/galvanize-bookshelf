@@ -5,7 +5,7 @@ exports.up = function(knex) {
       table.increments('id').primary();
       table.integer('author_id')
         .notNullable()
-        .references('id')
+        .references('book_id')
         .inTable('authors')
         .onDelete('CASCADE')
         .index();

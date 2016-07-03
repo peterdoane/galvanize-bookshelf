@@ -1,6 +1,6 @@
 'use strict';
 exports.seed = function(knex) {
-  return knex('users_books').del()
+  return knex('users').del()
     .then(() => {
       return knex('users').insert([{
         id: 1,

@@ -3,7 +3,7 @@
 exports.seed = function(knex) {
   return knex('books').del()
     .then(() => {
-      return knex('books').insert([{
+      return knex('user_books').insert([{
         id: 1,
         author_id: 2,
         title: 'Python In A Nutshell',
